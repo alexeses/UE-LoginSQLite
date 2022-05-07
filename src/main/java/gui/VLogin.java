@@ -1,6 +1,6 @@
-package com.github.alexeses.gui;
+package gui;
 
-import com.github.alexeses.control.CLogin;
+import control.CLogin;
 
 import javax.swing.*;
 

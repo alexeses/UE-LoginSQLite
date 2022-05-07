@@ -1,9 +1,9 @@
-package com.github.alexeses.control;
+package control;
 
 
-import com.github.alexeses.gui.VLogin;
-import com.github.alexeses.model.Usuario;
-import com.github.alexeses.persistencia.UsuarioPersistencia;
+import gui.VLogin;
+import model.Usuario;
+import persistencia.UsuarioPersistencia;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

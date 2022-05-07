@@ -1,4 +1,4 @@
-package com.github.alexeses.model;
+package model;
 
 public class Usuario {
     private String name;
