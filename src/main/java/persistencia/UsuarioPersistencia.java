@@ -114,7 +114,6 @@ public class UsuarioPersistencia {
                 e.printStackTrace();
             }
         }
-        // Primer commit en windows?
 
         return usuario;
     }

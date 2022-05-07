@@ -2,6 +2,8 @@ package control;
 
 
 import gui.VLogin;
+import gui.VMenu;
+import gui.VWelcome;
 import model.Usuario;
 import persistencia.UsuarioPersistencia;
 
@@ -12,10 +14,14 @@ import java.awt.event.ActionListener;
 public class CLogin implements ActionListener {
     UsuarioPersistencia up;
     VLogin vLogin;
+    VMenu vMenu;
+    VWelcome vWelcome;
 
-    public CLogin(UsuarioPersistencia up, VLogin vLogin) {
+    public CLogin(UsuarioPersistencia up, VLogin vLogin, VMenu vMenu, VWelcome vWelcome) {
         this.up = up;
         this.vLogin = vLogin;
+        this.vMenu = vMenu;
+        this.vWelcome = vWelcome;
     }
 
     @Override
@@ -30,7 +36,12 @@ public class CLogin implements ActionListener {
                 } else {
                     JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
                 }
+            }
+        }
 
+        if (e.getSource() instanceof JMenuItem){
+            if (e.getActionCommand().contains("Login")){
+                vMenu.cargarPanel(vLogin);
             }
         }
 
