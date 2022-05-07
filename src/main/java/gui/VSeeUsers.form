@@ -15,9 +15,20 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="80cbb" class="javax.swing.JTable" binding="table1" default-binding="true">
+          <component id="80cbb" class="javax.swing.JTable" binding="tblUsers">
             <constraints/>
-            <properties/>
+            <properties>
+              <autoCreateRowSorter value="true"/>
+              <autoResizeMode value="1"/>
+              <dropMode value="USE_SELECTION"/>
+              <fillsViewportHeight value="true"/>
+              <preferredScrollableViewportSize width="250" height="100"/>
+              <showHorizontalLines value="false"/>
+              <showVerticalLines value="false"/>
+            </properties>
+            <clientProperties>
+              <Table.isFileList class="java.lang.Boolean" value="true"/>
+            </clientProperties>
           </component>
         </children>
       </scrollpane>
@@ -28,6 +39,7 @@
           </grid>
         </constraints>
         <properties>
+          <labelFor value=""/>
           <text value="Lista de Usuarios"/>
         </properties>
       </component>

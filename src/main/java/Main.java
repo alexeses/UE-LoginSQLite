@@ -1,8 +1,6 @@
 import control.CLogin;
-import gui.VLogin;
-import gui.VMenu;
-import gui.VSeeUsers;
-import gui.VWelcome;
+import gui.*;
+import model.Usuario;
 import persistencia.UsuarioPersistencia;
 
 import javax.swing.*;
@@ -10,24 +8,35 @@ import java.awt.*;
 
 public class Main {
 
+    static UsuarioPersistencia datos;
+
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             VMenu vM = new VMenu();
             VLogin vL = new VLogin();
             VWelcome vW = new VWelcome();
-            VSeeUsers vS = new VSeeUsers();
+            VRegistro vR = new VRegistro();
+            datos = new UsuarioPersistencia();
+            VSeeUsers vS = new VSeeUsers(datos);
 
-            UsuarioPersistencia datos = new UsuarioPersistencia();
-            CLogin controlador = new CLogin(datos, vL, vM,vW);
+            CLogin controlador = new CLogin(datos, vL, vM,vW, vS, vR);
 
             vL.setControlador(controlador);
             vS.setControlador(controlador);
             vM.setControlador(controlador);
-
+            vS.setControlador(controlador);
+            vR.setControlador(controlador);
 
             vM.setVisible(true);
             vM.setControlador(controlador);
             vM.cargarPanel(vW);
+
         });
+
     }
+
+    public UsuarioPersistencia getUp() {
+        return datos;
+    }
+
 }

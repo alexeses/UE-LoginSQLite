@@ -12,7 +12,7 @@ public class VLogin extends JPanel {
     private JTextField txtUser;
     private JButton btnAcceder;
     private JPanel mainPanel;
-    private JButton btnVerUsers;
+    private JButton btnRegistro;
 
     public VLogin() {
         add(mainPanel);
@@ -30,8 +30,12 @@ public class VLogin extends JPanel {
         return txtPass;
     }
 
+    public JButton getBtnRegistro() {
+        return btnRegistro;
+    }
+
     public void setControlador(CLogin controlador) {
         btnAcceder.addActionListener(controlador);
-        btnVerUsers.addActionListener(controlador);
+        btnRegistro.addActionListener(controlador);
     }
 }
