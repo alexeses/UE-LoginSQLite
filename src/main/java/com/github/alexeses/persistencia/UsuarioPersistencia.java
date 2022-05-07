@@ -1,7 +1,7 @@
-package persistencia;
+package com.github.alexeses.persistencia;
 
-import db.AccesoDB;
-import model.Usuario;
+import com.github.alexeses.db.AccesoDB;
+import com.github.alexeses.model.Usuario;
 
 import java.sql.*;
 import java.util.ArrayList;

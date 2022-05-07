@@ -1,4 +1,4 @@
-package persistencia;
+package com.github.alexeses.persistencia;
 
 public class UsuarioContract {
     public static final String TABLENAME = "USUARIOS";

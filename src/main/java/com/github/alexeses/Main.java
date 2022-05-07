@@ -1,6 +1,8 @@
-import control.CLogin;
-import gui.VLogin;
-import persistencia.UsuarioPersistencia;
+package com.github.alexeses;
+
+import com.github.alexeses.control.CLogin;
+import com.github.alexeses.gui.VLogin;
+import com.github.alexeses.persistencia.UsuarioPersistencia;
 
 import java.awt.*;
 
