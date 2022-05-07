@@ -12,6 +12,7 @@ public class VLogin extends JFrame {
     private JTextField txtUser;
     private JButton btnAcceder;
     private JPanel mainPanel;
+    private JButton btnVerUsers;
 
     public VLogin() {
         setContentPane(mainPanel);
@@ -34,6 +35,7 @@ public class VLogin extends JFrame {
 
     public void setControlador(CLogin controlador) {
         btnAcceder.addActionListener(controlador);
+        btnVerUsers.addActionListener(controlador);
     }
 
     public void hacerVisible() {

@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CLogin implements ActionListener {
-    Usuario usuario;
     UsuarioPersistencia up;
     VLogin vLogin;
 
@@ -25,9 +24,6 @@ public class CLogin implements ActionListener {
             if (e.getActionCommand().contains("Login")){
                 String user = vLogin.getTxtUser().getText();
                 String pass = vLogin.getTxtPass().getText();
-
-                System.out.println(user);
-                System.out.println(pass);
 
                 if (up.existUser(user, pass) != null){
                     JOptionPane.showMessageDialog(null, "Bienvenido");

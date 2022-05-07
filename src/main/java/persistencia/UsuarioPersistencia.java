@@ -72,17 +72,16 @@ public class UsuarioPersistencia {
     public Usuario existUser(String user, String pass) {
 
         Usuario usuario = null;
-        // SELECT USUARIOS FROM USUARIOS WHERE USUARIOS.USUARIO = '$usuario' AND USUARIOS.PASSWORD = '$password'
 
         String query = "SELECT " // seleccionar todos los campos de la tabla
                 + UsuarioContract.COLUMNUSER + ", "
                 + UsuarioContract.COLUMNPASS
                 + " FROM " + UsuarioContract.TABLENAME
-                + " WHERE " + UsuarioContract.COLUMNUSER + " = ?"
-                + " AND " + UsuarioContract.COLUMNPASS + " = ?";
+                + " WHERE UPPER (" + UsuarioContract.COLUMNUSER + ") = UPPER (?)" // Igualamos MAYUS / MAYUS
+                + " AND UPPER (" + UsuarioContract.COLUMNPASS + ") = UPPER (?)";
 
         Connection con = null;
-        PreparedStatement pstmt = null;
+        PreparedStatement pstmt;
         ResultSet rs = null;
 
         try {

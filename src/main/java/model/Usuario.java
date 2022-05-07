@@ -1,8 +1,8 @@
 package model;
 
 public class Usuario {
-    private String name;
-    private String password;
+    private final String name;
+    private final String password;
 
     public Usuario(String name, String password) {
         this.name = name;
