@@ -31,6 +31,7 @@ public class VSeeUsers extends JPanel {
 
             model.addColumn("Usuario");
             model.addColumn("Contraseña");
+            System.out.println("Hay un total de " + up.getNumberUsers() + " usuarios");
 
             tblUsers.setModel(model);
     }
@@ -38,9 +39,9 @@ public class VSeeUsers extends JPanel {
     private void updateTable() {
         DefaultTableModel model = (DefaultTableModel)tblUsers.getModel();
 
-        for (int i = 0; i < up.getNumberUsers(); i++) {
+        for (int i = 1; i <= up.getNumberUsers(); i++) {
             model.addRow(
-                    new Object[]{up.getAllUserName(), up.getAllUserPassword()}
+                    new Object[]{up.getAllUserName(i), up.getAllUserPassword(i)}
             );
         }
 

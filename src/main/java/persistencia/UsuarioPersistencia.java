@@ -17,12 +17,12 @@ public class UsuarioPersistencia {
         db = new AccesoDB();
     }
 
-    public String getAllUserName() {
-
+    public String getAllUserName(int i) {
 
         String query = "SELECT " // seleccionar todos los campos de la tabla
-                + UsuarioContract.COLUMNUSER +
-                " FROM " + UsuarioContract.TABLENAME;
+        + UsuarioContract.COLUMNUSER +
+        " FROM " + UsuarioContract.TABLENAME +
+        " WHERE ROWID = " + i;
 
         Connection con = null;
         Statement stmt = null;
@@ -60,12 +60,13 @@ public class UsuarioPersistencia {
         return user;
     }
 
-    public String getAllUserPassword() {
+    public String getAllUserPassword(int i) {
 
 
         String query = "SELECT " // seleccionar todos los campos de la tabla
                 + UsuarioContract.COLUMNPASS +
-                " FROM " + UsuarioContract.TABLENAME;
+                " FROM " + UsuarioContract.TABLENAME +
+                " WHERE ROWID = " + i;
 
         Connection con = null;
         Statement stmt = null;
@@ -217,11 +218,9 @@ public class UsuarioPersistencia {
             stmt = con.createStatement(); // crear un statement para realizar la consulta
             rs = stmt.executeQuery(query); // ejecutar la query
 
-            String user;
-            String pass;
-
             while (rs.next()) {
-                number++;
+
+                number = rs.getInt(1);
             }
 
         } catch (ClassNotFoundException e) {
