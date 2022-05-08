@@ -17,6 +17,94 @@ public class UsuarioPersistencia {
         db = new AccesoDB();
     }
 
+    public String getAllUserName(int i) {
+
+        String query = "SELECT " // seleccionar todos los campos de la tabla
+        + UsuarioContract.COLUMNUSER +
+        " FROM " + UsuarioContract.TABLENAME +
+        " WHERE ROWID = " + i;
+
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        String user = "";
+
+        try {
+            con = db.getConexion();
+            stmt = con.createStatement(); // crear un statement para realizar la consulta
+            rs = stmt.executeQuery(query); // ejecutar la query
+
+            while (rs.next()) {
+                user = rs.getString(UsuarioContract.COLUMNUSER); // obtener el valor del campo
+            }
+
+
+        } catch (ClassNotFoundException e) {
+            System.out.println(EROROR_CONEXION);
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println(ERRROR_SQL);
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (con != null) con.close();
+                System.out.println(OK_CONEXCERRADA);
+            } catch (SQLException e) {
+                System.out.println(ERRROR_SQL);
+                e.printStackTrace();
+            }
+        }
+
+        return user;
+    }
+
+    public String getAllUserPassword(int i) {
+
+
+        String query = "SELECT " // seleccionar todos los campos de la tabla
+                + UsuarioContract.COLUMNPASS +
+                " FROM " + UsuarioContract.TABLENAME +
+                " WHERE ROWID = " + i;
+
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        String pass = "";
+
+        try {
+            con = db.getConexion();
+            stmt = con.createStatement(); // crear un statement para realizar la consulta
+            rs = stmt.executeQuery(query); // ejecutar la query
+
+            while (rs.next()) {
+                pass = rs.getString(UsuarioContract.COLUMNPASS); // obtener el valor del campo
+            }
+
+
+        } catch (ClassNotFoundException e) {
+            System.out.println(EROROR_CONEXION);
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println(ERRROR_SQL);
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (con != null) con.close();
+                System.out.println(OK_CONEXCERRADA);
+            } catch (SQLException e) {
+                System.out.println(ERRROR_SQL);
+                e.printStackTrace();
+            }
+        }
+
+        return pass;
+    }
+
+
     public ArrayList<Usuario> allUsers() {
         ArrayList<Usuario> usuarios = new ArrayList<>();
 
@@ -70,7 +158,6 @@ public class UsuarioPersistencia {
     }
 
     public Usuario existUser(String user, String pass) {
-
         Usuario usuario = null;
 
         String query = "SELECT " // seleccionar todos los campos de la tabla
@@ -117,4 +204,81 @@ public class UsuarioPersistencia {
 
         return usuario;
     }
+
+    public int getNumberUsers() {
+        String query = "SELECT COUNT(*) FROM " + UsuarioContract.TABLENAME;
+
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        int number = 0;
+
+        try {
+            con = db.getConexion();
+            stmt = con.createStatement(); // crear un statement para realizar la consulta
+            rs = stmt.executeQuery(query); // ejecutar la query
+
+            while (rs.next()) {
+
+                number = rs.getInt(1);
+            }
+
+        } catch (ClassNotFoundException e) {
+            System.out.println(EROROR_CONEXION);
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println(ERRROR_SQL);
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (con != null) con.close();
+                System.out.println(OK_CONEXCERRADA);
+            } catch (SQLException e) {
+                System.out.println(ERRROR_SQL);
+                e.printStackTrace();
+            }
+        }
+
+        return number;
+    }
+
+
+    public void addUser(String user, String pass) {
+        // add user to the database
+        String query = "INSERT INTO " + UsuarioContract.TABLENAME + " (" + UsuarioContract.COLUMNUSER + ", " + UsuarioContract.COLUMNPASS + ") VALUES (? , ?)";
+
+        Connection con = null;
+        PreparedStatement pstmt = null; // Por que su inicialización deberá ir entre un try y un catch
+        ResultSet rs = null;
+
+        try {
+            con = db.getConexion();
+            pstmt = con.prepareStatement(query); // preparar la query
+
+            pstmt.setString(1, user); // (pos1, parámetro del método)
+            pstmt.setString(2, pass); // (pos2, parámetro del método)
+
+            pstmt.executeUpdate(); // Al ser DELETE, INSERT o UPDATE usamos executeUpdate
+
+        } catch (ClassNotFoundException e) {
+            System.out.println(EROROR_CONEXION);
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println(ERRROR_SQL);
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (con != null) con.close();
+                System.out.println(OK_CONEXCERRADA);
+            } catch (SQLException e) {
+                System.out.println(ERRROR_SQL);
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

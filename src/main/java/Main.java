@@ -1,24 +1,51 @@
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import control.CLogin;
-import gui.VLogin;
-import gui.VSeeUsers;
+import gui.*;
+import model.Usuario;
 import persistencia.UsuarioPersistencia;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Main {
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            VLogin vL = new VLogin();
-            VSeeUsers vS = new VSeeUsers();
+    static UsuarioPersistencia datos;
 
-            UsuarioPersistencia datos = new UsuarioPersistencia();
-            CLogin controlador = new CLogin(datos, vL);
+    public static void main(String[] args) {
+
+        try {
+            UIManager.setLookAndFeel(new FlatDarculaLaf());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        EventQueue.invokeLater(() -> {
+            VMenu vM = new VMenu();
+            VLogin vL = new VLogin();
+            VWelcome vW = new VWelcome();
+            VRegistro vR = new VRegistro();
+            datos = new UsuarioPersistencia();
+            VSeeUsers vS = new VSeeUsers(datos);
+
+            CLogin controlador = new CLogin(datos, vL, vM,vW, vS, vR);
 
             vL.setControlador(controlador);
             vS.setControlador(controlador);
+            vM.setControlador(controlador);
+            vS.setControlador(controlador);
+            vR.setControlador(controlador);
 
-            vL.hacerVisible();
+            vM.setVisible(true);
+            vM.setControlador(controlador);
+            vM.cargarPanel(vW);
+
         });
+
     }
+
+    public UsuarioPersistencia getUp() {
+        return datos;
+    }
+
 }

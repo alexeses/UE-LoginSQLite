@@ -16,4 +16,12 @@ public class Usuario {
                 ", password='" + password + '\'' +
                 '}';
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }

@@ -4,7 +4,7 @@ import control.CLogin;
 
 import javax.swing.*;
 
-public class VLogin extends JFrame {
+public class VLogin extends JPanel {
     private JLabel lblTitulo;
     private JLabel lblUser;
     private JPasswordField txtPass;
@@ -12,13 +12,10 @@ public class VLogin extends JFrame {
     private JTextField txtUser;
     private JButton btnAcceder;
     private JPanel mainPanel;
-    private JButton btnVerUsers;
+    private JButton btnRegistro;
 
     public VLogin() {
-        setContentPane(mainPanel);
-        pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        add(mainPanel);
     }
 
     public JButton getBtnAcceder() {
@@ -33,12 +30,12 @@ public class VLogin extends JFrame {
         return txtPass;
     }
 
-    public void setControlador(CLogin controlador) {
-        btnAcceder.addActionListener(controlador);
-        btnVerUsers.addActionListener(controlador);
+    public JButton getBtnRegistro() {
+        return btnRegistro;
     }
 
-    public void hacerVisible() {
-        setVisible(true);
+    public void setControlador(CLogin controlador) {
+        btnAcceder.addActionListener(controlador);
+        btnRegistro.addActionListener(controlador);
     }
 }
