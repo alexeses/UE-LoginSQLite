@@ -1,3 +1,5 @@
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import control.CLogin;
 import gui.*;
 import model.Usuario;
@@ -11,6 +13,13 @@ public class Main {
     static UsuarioPersistencia datos;
 
     public static void main(String[] args) {
+
+        try {
+            UIManager.setLookAndFeel(new FlatDarculaLaf());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         EventQueue.invokeLater(() -> {
             VMenu vM = new VMenu();
             VLogin vL = new VLogin();
