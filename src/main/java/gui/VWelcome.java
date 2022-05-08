@@ -3,6 +3,7 @@ package gui;
 import control.CLogin;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class VWelcome extends JPanel {
     private JPanel mainWelcome;
@@ -15,7 +16,4 @@ public class VWelcome extends JPanel {
         add(mainWelcome);
     }
 
-    private void createUIComponents() {
-
-    }
 }

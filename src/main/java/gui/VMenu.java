@@ -3,6 +3,7 @@ package gui;
 import control.CLogin;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class VMenu extends JFrame {
     private JPanel menuPanel;
