@@ -31,7 +31,6 @@ public class VSeeUsers extends JPanel {
 
             model.addColumn("Usuario");
             model.addColumn("Contraseña");
-            System.out.println("Hay un total de " + up.getNumberUsers() + " usuarios");
 
             tblUsers.setModel(model);
     }

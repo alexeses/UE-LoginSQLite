@@ -30,4 +30,9 @@ public class VRegistro extends JPanel{
     public JPasswordField getTxtRegPass() {
         return txtRegPass;
     }
+
+    public void borrarDatos() {
+        txtRegNombre.setText("");
+        txtRegPass.setText("");
+    }
 }
