@@ -59,34 +59,12 @@ public class VRegistro extends JPanel {
             error = "El nombre de usuario debe tener al menos 8 caracteres";
         } else if (nom.length() > 20) {
             error = "El nombre de usuario debe tener menos de 20 caracteres";
+        } else if (nom.matches(".*\\s+.*")) {
+            error = "El nombre de usuario no puede contener espacios";
+        } else if (nom.isEmpty()) {
+            error = "Debe introducir el nombre de usuario";
         }
 
         return error;
-    }
-
-    // codigo muerto
-    public boolean validUser(String user) {
-        boolean result;
-        System.out.println(user);
-
-        if (user.length() < 6) {
-            result = false;
-            System.out.println("El nombre de usuario debe tener al menos 6 caracteres");
-        } else if (user.length() > 12) {
-            result = false;
-            System.out.println("El nombre de usuario debe tener menos de 12 caracteres");
-        } else if (user.isEmpty()) {
-            result = false;
-            System.out.println("El nombre de usuario no puede estar vacío");
-        } else if (user.matches(".*\\s+.*")) {
-            result = false;
-            System.out.println("El nombre de usuario no puede contener espacios");
-        } else {
-            System.out.println("El nombre de usuario es valido");
-            result = true;
-        }
-
-
-        return result;
     }
 }
