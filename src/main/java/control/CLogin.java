@@ -69,31 +69,20 @@ public class CLogin implements ActionListener {
                 vMenu.cargarPanel(vRegistro);
             } else if (e.getActionCommand().contains("Registrar")) {
 
-                if (vRegistro.getTxtRegNombre().getText().isEmpty() || vRegistro.getTxtRegPass().getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, campoVacio, "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (vRegistro.getTxtRegNombre().getText().length() > 20 || vRegistro.getTxtRegPass().getText().length() > 20) {
-                    JOptionPane.showMessageDialog(null, campo20Car);
-                } else if (vRegistro.getTxtRegNombre().getText().matches("\\d+")) {
-                    JOptionPane.showMessageDialog(null, campoUNumber);
-                } else if (vRegistro.getTxtRegNombre().getText().equals(vRegistro.getTxtRegPass().getText())) {
-                    JOptionPane.showMessageDialog(null, campoIqual);
-                } else if (vRegistro.getTxtRegNombre().getText().length() < 2 || vRegistro.getTxtRegPass().getText().length() < 8) {
-                    JOptionPane.showMessageDialog(null, campo8Car);
-                } else if (!vRegistro.getTxtRegPass().getText().equals("[A-Za-z0-9]+")) {
-                    JOptionPane.showMessageDialog(null, compoLetters);
+                String rUser = vRegistro.getTxtRegNombre().getText();
+                String rPass = vRegistro.getTxtRegPass().getText();
+
+
+                if (vRegistro.validarPassword(rPass, rUser) != "") {
+                    System.out.println("Holaaa, no funciona :,c");
+                    System.out.println(vRegistro.validarPassword(rPass, rUser));
+                } else if (up.existUser(rUser, rPass) != null) {
+                    JOptionPane.showMessageDialog(null, "El nombre de usuario ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (vRegistro.validarPassword(rPass, rUser) == "") {
+                    up.addUser(rUser, rPass);
+                    JOptionPane.showMessageDialog(null, "Usuario registrado correctamente", "¡Oh yeah!", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    String rUser = vRegistro.getTxtRegNombre().getText();
-                    String rPass = vRegistro.getTxtRegPass().getText();
-
-                    if (up.existUser(rUser, rPass) != null) {
-                        JOptionPane.showMessageDialog(null, "El usuario ya existe");
-                        vRegistro.borrarDatos();
-                    } else if (up.existUser(rUser, rPass) == null) {
-                        up.addUser(rUser, rPass);
-                        JOptionPane.showMessageDialog(null, "Usuario creado");
-                        vRegistro.borrarDatos();
-                    }
-
+                    JOptionPane.showMessageDialog(null, "Error en la contraseña");
                 }
 
             } else if (e.getActionCommand().contains("Borrar")) {
