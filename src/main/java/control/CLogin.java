@@ -71,6 +71,8 @@ public class CLogin implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Usuario creado");
                     vRegistro.borrarDatos();
                 }
+
+
             } else if (e.getActionCommand().contains("Borrar")) {
                 vRegistro.borrarDatos();
             }

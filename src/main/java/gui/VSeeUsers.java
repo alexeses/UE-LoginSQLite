@@ -15,14 +15,11 @@ public class VSeeUsers extends JPanel {
     private boolean isCreated;
     UsuarioPersistencia up;
 
-
     public VSeeUsers(UsuarioPersistencia up) {
         this.up = up;
         add(seePanel);
         crearTabla();
         updateTable();
-
-        System.out.println(up.getNumberUsers());
 
     }
 

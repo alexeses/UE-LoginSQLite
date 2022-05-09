@@ -3,6 +3,7 @@ package persistencia;
 import db.AccesoDB;
 import model.Usuario;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -62,7 +63,6 @@ public class UsuarioPersistencia {
 
     public String getAllUserPassword(int i) {
 
-
         String query = "SELECT " // seleccionar todos los campos de la tabla
                 + UsuarioContract.COLUMNPASS +
                 " FROM " + UsuarioContract.TABLENAME +
@@ -104,7 +104,6 @@ public class UsuarioPersistencia {
         return pass;
     }
 
-
     public ArrayList<Usuario> allUsers() {
         ArrayList<Usuario> usuarios = new ArrayList<>();
 
@@ -127,14 +126,13 @@ public class UsuarioPersistencia {
             String pass;
 
             while (rs.next()) {
+
                 user = rs.getString(UsuarioContract.COLUMNUSER); // obtener el valor del campo
                 pass = rs.getString(UsuarioContract.COLUMNPASS);
 
-                usuario = new Usuario(user, pass); // crear un usuario con los datos obtenidos
-                usuarios.add(usuario); // agregamos el usuario a la lista
-
+                    usuario = new Usuario(user, pass);
+                    usuarios.add(usuario);
             }
-
 
         } catch (ClassNotFoundException e) {
             System.out.println(EROROR_CONEXION);
@@ -244,9 +242,7 @@ public class UsuarioPersistencia {
         return number;
     }
 
-
     public void addUser(String user, String pass) {
-        // add user to the database
         String query = "INSERT INTO " + UsuarioContract.TABLENAME + " (" + UsuarioContract.COLUMNUSER + ", " + UsuarioContract.COLUMNPASS + ") VALUES (? , ?)";
 
         Connection con = null;
@@ -280,5 +276,4 @@ public class UsuarioPersistencia {
             }
         }
     }
-
 }
