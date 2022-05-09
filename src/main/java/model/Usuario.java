@@ -9,14 +9,6 @@ public class Usuario {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
-
     public String getName() {
         return name;
     }

@@ -35,6 +35,7 @@ public class VSeeUsers extends JPanel {
     private void updateTable() {
         DefaultTableModel model = (DefaultTableModel)tblUsers.getModel();
 
+
         for (int i = 1; i <= up.getNumberUsers(); i++) {
             model.addRow(
                     new Object[]{up.getAllUserName(i), up.getAllUserPassword(i)}

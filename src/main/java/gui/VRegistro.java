@@ -35,4 +35,6 @@ public class VRegistro extends JPanel{
         txtRegNombre.setText("");
         txtRegPass.setText("");
     }
+
+
 }

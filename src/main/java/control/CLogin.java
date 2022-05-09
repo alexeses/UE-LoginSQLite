@@ -35,7 +35,7 @@ public class CLogin implements ActionListener {
                 String pass = vLogin.getTxtPass().getText();
 
                 if (up.existUser(user, pass) != null) {
-                    JOptionPane.showMessageDialog(null, "Bienvenido", "¡Oh yeaah!",
+                    JOptionPane.showMessageDialog(null, "Bienvenido", "¡Oh yeah!",
                             JOptionPane.INFORMATION_MESSAGE);
                     attempts = 0;
                 } else if (attempts > 3) {
@@ -59,19 +59,31 @@ public class CLogin implements ActionListener {
             } else if (e.getActionCommand().contains("Registro")) {
                 vMenu.cargarPanel(vRegistro);
             } else if (e.getActionCommand().contains("Registrar")) {
-                String rUser = vRegistro.getTxtRegNombre().getText();
-                String rPass = vRegistro.getTxtRegPass().getText();
 
+                if (vRegistro.getTxtRegNombre().getText().isEmpty() || vRegistro.getTxtRegPass().getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No puedes dejar ningún campo vacío",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (vRegistro.getTxtRegNombre().getText().length() > 20 || vRegistro.getTxtRegPass().getText().length() > 20) {
+                    JOptionPane.showMessageDialog(null, "El nombre de usuario y contraseña no " +
+                            "pueden tener más de 20 caracteres");
+                } else if (vRegistro.getTxtRegNombre().getText().matches("\\d+")) {
+                    JOptionPane.showMessageDialog(null, "El nombre de usuario no puede contener números");
+                } else if (vRegistro.getTxtRegNombre().getText().equals(vRegistro.getTxtRegPass().getText())) {
+                    JOptionPane.showMessageDialog(null, "El nombre de usuario y contraseña no pueden ser iguales");
+                } else {
+                    String rUser = vRegistro.getTxtRegNombre().getText();
+                    String rPass = vRegistro.getTxtRegPass().getText();
 
-                if (up.existUser(rUser, rPass) != null) {
-                    JOptionPane.showMessageDialog(null, "El usuario ya existe");
-                    vRegistro.borrarDatos();
-                } else if (up.existUser(rUser, rPass) == null) {
-                    up.addUser(rUser, rPass);
-                    JOptionPane.showMessageDialog(null, "Usuario creado");
-                    vRegistro.borrarDatos();
+                    if (up.existUser(rUser, rPass) != null) {
+                        JOptionPane.showMessageDialog(null, "El usuario ya existe");
+                        vRegistro.borrarDatos();
+                    } else if (up.existUser(rUser, rPass) == null) {
+                        up.addUser(rUser, rPass);
+                        JOptionPane.showMessageDialog(null, "Usuario creado");
+                        vRegistro.borrarDatos();
+                    }
+
                 }
-
 
             } else if (e.getActionCommand().contains("Borrar")) {
                 vRegistro.borrarDatos();
