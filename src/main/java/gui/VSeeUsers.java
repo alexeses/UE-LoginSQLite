@@ -19,7 +19,7 @@ public class VSeeUsers extends JPanel {
         this.up = up;
         add(seePanel);
         crearTabla();
-        //updateTable();
+        updateTable();
 
     }
 
