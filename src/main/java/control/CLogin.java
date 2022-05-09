@@ -15,6 +15,15 @@ public class CLogin implements ActionListener {
     VSeeUsers vSeeUsers;
     VRegistro vRegistro;
     int attempts = 0;
+    final String campoVacio = "No puedes dejar ningún campo vacío";
+    final String campo20Car = "El campo debe tener menos de 20 caracteres";
+    final String campoUNumber = "El usuario no puede estar formado por números";
+    final String campoIqual = "El nombre de usuario y contraseña no pueden ser iguales";
+    final String campo8Car = "El nombre de usuario y contraseña no puede tener menos de 8 caracteres";
+    final String compoMayus = "La contraseña debe contener una letra mayúscula";
+    final String compoNumber = "La contraseña debe contener un número";
+    final String compoLetters = "La contraseña debe contener una letra y un número";
+
 
     public CLogin(UsuarioPersistencia up, VLogin vLogin, VMenu vMenu, VWelcome vWelcome, VSeeUsers vSeeUsers,
                   VRegistro vRegistro) {
@@ -35,7 +44,7 @@ public class CLogin implements ActionListener {
                 String pass = vLogin.getTxtPass().getText();
 
                 if (up.existUser(user, pass) != null) {
-                    JOptionPane.showMessageDialog(null, "Bienvenido", "¡Oh yeaah!",
+                    JOptionPane.showMessageDialog(null, "Bienvenido", "¡Oh yeah!",
                             JOptionPane.INFORMATION_MESSAGE);
                     attempts = 0;
                 } else if (attempts > 3) {
@@ -59,18 +68,34 @@ public class CLogin implements ActionListener {
             } else if (e.getActionCommand().contains("Registro")) {
                 vMenu.cargarPanel(vRegistro);
             } else if (e.getActionCommand().contains("Registrar")) {
-                String rUser = vRegistro.getTxtRegNombre().getText();
-                String rPass = vRegistro.getTxtRegPass().getText();
 
+                if (vRegistro.getTxtRegNombre().getText().isEmpty() || vRegistro.getTxtRegPass().getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, campoVacio, "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (vRegistro.getTxtRegNombre().getText().length() > 20 || vRegistro.getTxtRegPass().getText().length() > 20) {
+                    JOptionPane.showMessageDialog(null, campo20Car);
+                } else if (vRegistro.getTxtRegNombre().getText().matches("\\d+")) {
+                    JOptionPane.showMessageDialog(null, campoUNumber);
+                } else if (vRegistro.getTxtRegNombre().getText().equals(vRegistro.getTxtRegPass().getText())) {
+                    JOptionPane.showMessageDialog(null, campoIqual);
+                } else if (vRegistro.getTxtRegNombre().getText().length() < 2 || vRegistro.getTxtRegPass().getText().length() < 8) {
+                    JOptionPane.showMessageDialog(null, campo8Car);
+                } else if (!vRegistro.getTxtRegPass().getText().equals("[A-Za-z0-9]+")) {
+                    JOptionPane.showMessageDialog(null, compoLetters);
+                } else {
+                    String rUser = vRegistro.getTxtRegNombre().getText();
+                    String rPass = vRegistro.getTxtRegPass().getText();
 
-                if (up.existUser(rUser, rPass) != null) {
-                    JOptionPane.showMessageDialog(null, "El usuario ya existe");
-                    vRegistro.borrarDatos();
-                } else if (up.existUser(rUser, rPass) == null) {
-                    up.addUser(rUser, rPass);
-                    JOptionPane.showMessageDialog(null, "Usuario creado");
-                    vRegistro.borrarDatos();
+                    if (up.existUser(rUser, rPass) != null) {
+                        JOptionPane.showMessageDialog(null, "El usuario ya existe");
+                        vRegistro.borrarDatos();
+                    } else if (up.existUser(rUser, rPass) == null) {
+                        up.addUser(rUser, rPass);
+                        JOptionPane.showMessageDialog(null, "Usuario creado");
+                        vRegistro.borrarDatos();
+                    }
+
                 }
+
             } else if (e.getActionCommand().contains("Borrar")) {
                 vRegistro.borrarDatos();
             }
