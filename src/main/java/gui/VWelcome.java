@@ -1,9 +1,6 @@
 package gui;
 
-import control.CLogin;
-
 import javax.swing.*;
-import java.awt.*;
 
 public class VWelcome extends JPanel {
     private JPanel mainWelcome;

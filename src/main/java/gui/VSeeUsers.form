@@ -22,7 +22,7 @@
               <autoResizeMode value="1"/>
               <dropMode value="USE_SELECTION"/>
               <fillsViewportHeight value="true"/>
-              <preferredScrollableViewportSize width="250" height="100"/>
+              <preferredScrollableViewportSize width="250" height="150"/>
               <showHorizontalLines value="false"/>
               <showVerticalLines value="false"/>
             </properties>

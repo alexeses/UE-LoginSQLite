@@ -32,9 +32,16 @@ public class VSeeUsers extends JPanel {
             tblUsers.setModel(model);
     }
 
-    private void updateTable() {
+    public void updateTable() {
+
         DefaultTableModel model = (DefaultTableModel)tblUsers.getModel();
 
+        // borrar tabla
+        int rowCount = model.getRowCount();
+        for (int i = rowCount - 1; i >= 0; i--) {
+            model.removeRow(i);
+        }
+        // cargar tabla
         for (int i = 1; i <= up.getNumberUsers(); i++) {
             model.addRow(
                     new Object[]{up.getAllUserName(i), up.getAllUserPassword(i)}

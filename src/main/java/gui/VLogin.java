@@ -38,4 +38,5 @@ public class VLogin extends JPanel {
         btnAcceder.addActionListener(controlador);
         btnRegistro.addActionListener(controlador);
     }
+
 }

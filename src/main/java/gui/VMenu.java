@@ -22,12 +22,12 @@ public class VMenu extends JFrame {
         setLocationRelativeTo(null);
         setTitle("Menu");
         setSize(400, 300);
+        setResizable(false);
     }
 
     public void cargarPanel(JPanel panel) {
         scrPanel.setViewportView(panel);
     }
-
     public void setControlador(CLogin controlador) {
         opcLogin.addActionListener(controlador);
         opcSee.addActionListener(controlador);

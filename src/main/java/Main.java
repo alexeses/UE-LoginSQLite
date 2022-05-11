@@ -41,7 +41,6 @@ public class Main {
             vM.cargarPanel(vW);
 
         });
-
     }
 
     public UsuarioPersistencia getUp() {

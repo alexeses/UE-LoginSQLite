@@ -3,16 +3,14 @@ package persistencia;
 import db.AccesoDB;
 import model.Usuario;
 
-import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
+
+import static persistencia.Messages.*;
 
 public class UsuarioPersistencia {
 
     private final AccesoDB db;
-    private static final String EROROR_CONEXION = "❌ Error de conexión, contacte al administrador";
-    private static final String ERRROR_SQL = "❌ Error de SQL, contacte al administrador";
-    private static final String OK_CONEXCERRADA = "✅ Conexión cerrada";
 
     public UsuarioPersistencia() {
         db = new AccesoDB();
@@ -21,8 +19,8 @@ public class UsuarioPersistencia {
     public String getAllUserName(int i) {
 
         String query = "SELECT " // seleccionar todos los campos de la tabla
-        + UsuarioContract.COLUMNUSER +
-        " FROM " + UsuarioContract.TABLENAME +
+        + Messages.COLUMNUSER +
+        " FROM " + Messages.TABLENAME +
         " WHERE ROWID = " + i;
 
         Connection con = null;
@@ -36,26 +34,15 @@ public class UsuarioPersistencia {
             rs = stmt.executeQuery(query); // ejecutar la query
 
             while (rs.next()) {
-                user = rs.getString(UsuarioContract.COLUMNUSER); // obtener el valor del campo
+                user = rs.getString(Messages.COLUMNUSER); // obtener el valor del campo
             }
-
 
         } catch (ClassNotFoundException e) {
-            System.out.println(EROROR_CONEXION);
             e.printStackTrace();
         } catch (SQLException e) {
-            System.out.println(ERRROR_SQL);
             e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
-                if (con != null) con.close();
-                System.out.println(OK_CONEXCERRADA);
-            } catch (SQLException e) {
-                System.out.println(ERRROR_SQL);
-                e.printStackTrace();
-            }
+        } finally { // debemos cerrar la conexión de forma inversa a la que se abrió
+            finConnect(con, stmt, rs);
         }
 
         return user;
@@ -64,8 +51,8 @@ public class UsuarioPersistencia {
     public String getAllUserPassword(int i) {
 
         String query = "SELECT " // seleccionar todos los campos de la tabla
-                + UsuarioContract.COLUMNPASS +
-                " FROM " + UsuarioContract.TABLENAME +
+                + Messages.COLUMNPASS +
+                " FROM " + Messages.TABLENAME +
                 " WHERE ROWID = " + i;
 
         Connection con = null;
@@ -79,26 +66,15 @@ public class UsuarioPersistencia {
             rs = stmt.executeQuery(query); // ejecutar la query
 
             while (rs.next()) {
-                pass = rs.getString(UsuarioContract.COLUMNPASS); // obtener el valor del campo
+                pass = rs.getString(Messages.COLUMNPASS); // obtener el valor del campo
             }
-
 
         } catch (ClassNotFoundException e) {
-            System.out.println(EROROR_CONEXION);
             e.printStackTrace();
         } catch (SQLException e) {
-            System.out.println(ERRROR_SQL);
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
-                if (con != null) con.close();
-                System.out.println(OK_CONEXCERRADA);
-            } catch (SQLException e) {
-                System.out.println(ERRROR_SQL);
-                e.printStackTrace();
-            }
+            finConnect(con, stmt, rs);
         }
 
         return pass;
@@ -108,9 +84,9 @@ public class UsuarioPersistencia {
         ArrayList<Usuario> usuarios = new ArrayList<>();
 
         String query = "SELECT " // seleccionar todos los campos de la tabla
-                + UsuarioContract.COLUMNUSER + ", "
-                + UsuarioContract.COLUMNPASS +
-                " FROM " + UsuarioContract.TABLENAME;
+                + Messages.COLUMNUSER + ", "
+                + Messages.COLUMNPASS +
+                " FROM " + Messages.TABLENAME;
 
         Connection con = null;
         Statement stmt = null;
@@ -127,29 +103,19 @@ public class UsuarioPersistencia {
 
             while (rs.next()) {
 
-                user = rs.getString(UsuarioContract.COLUMNUSER); // obtener el valor del campo
-                pass = rs.getString(UsuarioContract.COLUMNPASS);
+                user = rs.getString(Messages.COLUMNUSER); // obtener el valor del campo
+                pass = rs.getString(Messages.COLUMNPASS);
 
                     usuario = new Usuario(user, pass);
                     usuarios.add(usuario);
             }
 
         } catch (ClassNotFoundException e) {
-            System.out.println(EROROR_CONEXION);
             e.printStackTrace();
         } catch (SQLException e) {
-            System.out.println(ERRROR_SQL);
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
-                if (con != null) con.close();
-                System.out.println(OK_CONEXCERRADA);
-            } catch (SQLException e) {
-                System.out.println(ERRROR_SQL);
-                e.printStackTrace();
-            }
+            finConnect(con, stmt, rs);
         }
 
         return usuarios;
@@ -159,11 +125,11 @@ public class UsuarioPersistencia {
         Usuario usuario = null;
 
         String query = "SELECT " // seleccionar todos los campos de la tabla
-                + UsuarioContract.COLUMNUSER + ", "
-                + UsuarioContract.COLUMNPASS
-                + " FROM " + UsuarioContract.TABLENAME
-                + " WHERE UPPER (" + UsuarioContract.COLUMNUSER + ") = UPPER (?)" // Igualamos MAYUS / MAYUS
-                + " AND UPPER (" + UsuarioContract.COLUMNPASS + ") = UPPER (?)";
+                + Messages.COLUMNUSER + ", "
+                + Messages.COLUMNPASS
+                + " FROM " + Messages.TABLENAME
+                + " WHERE UPPER (" + Messages.COLUMNUSER + ") = UPPER (?)" // Igualamos MAYUS / MAYUS
+                + " AND UPPER (" + Messages.COLUMNPASS + ") = UPPER (?)";
 
         Connection con = null;
         PreparedStatement pstmt;
@@ -178,24 +144,20 @@ public class UsuarioPersistencia {
             rs = pstmt.executeQuery(); // ejecutar la query
 
             if (rs.next()) {
-                user = rs.getString(UsuarioContract.COLUMNUSER); // obtener el valor del campo
-                pass = rs.getString(UsuarioContract.COLUMNPASS);
+                user = rs.getString(Messages.COLUMNUSER); // obtener el valor del campo
+                pass = rs.getString(Messages.COLUMNPASS);
 
                 usuario = new Usuario(user, pass); // crear un usuario con los datos obtenidos
             }
         } catch (ClassNotFoundException e) {
-            System.out.println(EROROR_CONEXION);
             e.printStackTrace();
         } catch (SQLException e) {
-            System.out.println(ERRROR_SQL);
             e.printStackTrace();
         } finally {
             try {
                 if (rs != null) rs.close();
                 if (con != null) con.close();
-                System.out.println(OK_CONEXCERRADA);
             } catch (SQLException e) {
-                System.out.println(ERRROR_SQL);
                 e.printStackTrace();
             }
         }
@@ -204,7 +166,7 @@ public class UsuarioPersistencia {
     }
 
     public int getNumberUsers() {
-        String query = "SELECT COUNT(*) FROM " + UsuarioContract.TABLENAME;
+        String query = "SELECT COUNT(*) FROM " + Messages.TABLENAME;
 
         Connection con = null;
         Statement stmt = null;
@@ -222,28 +184,18 @@ public class UsuarioPersistencia {
             }
 
         } catch (ClassNotFoundException e) {
-            System.out.println(EROROR_CONEXION);
             e.printStackTrace();
         } catch (SQLException e) {
-            System.out.println(ERRROR_SQL);
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
-                if (con != null) con.close();
-                System.out.println(OK_CONEXCERRADA);
-            } catch (SQLException e) {
-                System.out.println(ERRROR_SQL);
-                e.printStackTrace();
-            }
+            finConnect(con, stmt, rs);
         }
 
         return number;
     }
 
     public void addUser(String user, String pass) {
-        String query = "INSERT INTO " + UsuarioContract.TABLENAME + " (" + UsuarioContract.COLUMNUSER + ", " + UsuarioContract.COLUMNPASS + ") VALUES (? , ?)";
+        String query = "INSERT INTO " + Messages.TABLENAME + " (" + Messages.COLUMNUSER + ", " + Messages.COLUMNPASS + ") VALUES (? , ?)";
 
         Connection con = null;
         PreparedStatement pstmt = null; // Por que su inicialización deberá ir entre un try y un catch
@@ -259,21 +211,22 @@ public class UsuarioPersistencia {
             pstmt.executeUpdate(); // Al ser DELETE, INSERT o UPDATE usamos executeUpdate
 
         } catch (ClassNotFoundException e) {
-            System.out.println(EROROR_CONEXION);
             e.printStackTrace();
         } catch (SQLException e) {
-            System.out.println(ERRROR_SQL);
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                if (con != null) con.close();
-                System.out.println(OK_CONEXCERRADA);
-            } catch (SQLException e) {
-                System.out.println(ERRROR_SQL);
-                e.printStackTrace();
-            }
+            finConnect(con, pstmt, rs);
         }
     }
+
+    private void finConnect(Connection con, Statement stmt, ResultSet rs) {
+        try {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+            if (con != null) con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

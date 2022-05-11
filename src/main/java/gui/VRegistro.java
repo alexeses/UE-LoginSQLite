@@ -1,6 +1,7 @@
 package gui;
 
 import control.CLogin;
+import persistencia.UsuarioPersistencia;
 
 import javax.swing.*;
 
@@ -13,6 +14,7 @@ public class VRegistro extends JPanel {
     private JButton btnRegistrar;
     private JButton btnBorrar;
     private JPanel mainRegistro;
+    UsuarioPersistencia uP;
 
     public VRegistro() {
         add(mainRegistro);
